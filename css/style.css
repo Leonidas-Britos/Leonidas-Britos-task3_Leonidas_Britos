@@ -407,6 +407,10 @@ legend {
     .navSuperior {
         margin-bottom: 5px;
     }
+
+    .navInferior {
+        width: 100%;
+    }
     
     .search_home {
         display: none;

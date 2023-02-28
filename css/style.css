@@ -411,8 +411,16 @@ legend {
 /* Extra extra small devices (phones, 425px and down) */
 @media only screen and (max-width: 425px) {
     .navSuperior {
+        display: flex;
+        flex-direction: column;
         margin-bottom: 3px;
     }
+
+    .header_logo {
+        margin-bottom: 30px;
+        width: 100%;
+    }
+    
     .check_search {
         display: none;
     }
@@ -423,7 +431,6 @@ legend {
     .form_contact {
         width: 380px;
     }
-    
 }
 
 /* Extra small devices (phones, 600px and down) */

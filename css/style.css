@@ -400,8 +400,21 @@ legend {
 
 /*-------------------------------MEDIA-QUERIES------------------------------------*/
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 360px) {}
 
+/* Extra extra small devices (phones, 425px and down) */
+@media only screen and (max-width: 425px) {
+    .navSuperior {
+        margin-bottom: 5px;
+    }
+    
+    .search_home {
+        display: none;
+    }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 599px) {
     .header_logo {
         display: none;
     }
@@ -416,115 +429,183 @@ legend {
         flex-direction: column;
         flex-wrap: wrap;
         text-align: center;
+        width: 80%;
     }
-
     .navInferior {
         display: none;
-    }
-
-    .contenido_footer {
-        align-content: center;
-        justify-content: space-around;
-        padding-left: 3px;
-        padding-right: 3px;
-    }
-
-    .instagram,
-    .facebook,
-    .whatsapp {
-        width: 25px;
-    }
-
-    .Cohort {
-        font-size: 1rem;
-    }
-
-    .check_search_home,
-    .check_search_upcomingEvents,
-    .check_search_PastEvents {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .check_home,
-    .check_upcomingEvents {
-        display: none;
-    }
-
-    #search_icon:hover{
-        cursor: pointer;
-    }
-
-    .contenido_stats {
-        font-size: 0.8rem;
-        padding: 0px;
-    }
-}
-
-/*--------------------------------------------------------------------*/
-
-@media only screen and (min-width: 320px) and (max-width: 767px) { 
-   
-    .navSuperior {
-        display: flex;
-        flex-direction: column;     
-    }
-
-    .navInferior {
-        align-items: center;
-        background-color: #e5e5e5;
-        border: solid 1px black;
-        border-radius: 20px;
-        display: flex;
-        font-size: 4rem;
-        height: 100px;
-        justify-content: space-between;
-        padding: 0.5rem 0.5rem 0.5rem 0rem;
-        width: 682px;
-    }
-
-    .nav_page {
-        display: inline-flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        gap: 5px;
-        margin-bottom: 5px;
-    }
-
-    nav>a {
-        font-size: 1.3rem;
     }
 
     .form_check {
-        align-items: center;
-        display: flex;
-        width: 670px;
+       display:none;
     }
     
-    .form_check>label {
-        margin-right: 5px;
-    }
-    
-    .form_check>input {
-        margin-right: 10px;
-    }
-
     .check_search_home {
         align-items: center;
         flex-direction: column;
     }
 
+    .search {
+        width: 400px;
+        height: 40px;
+    }
+
+    .search_icon {
+        height: 60px;
+    }
+
     .form_check {
         margin-bottom: 10px;
-    }
+    } 
 }
-/*--------------------------------------------------------------------*/
 
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+        .navSuperior {
+            display: flex;
+            flex-direction: column;     
+        }
+    
+        .nav_page {
+            display: inline-flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            gap: 2px;
+            margin-bottom: 5px;
+        }
+    
+        nav>a {
+            font-size: 1.04rem;
+        }
+    
+        .navInferior {
+            align-items: center;
+            background-color: #e5e5e5;
+            border: solid 1px black;
+            border-radius: 20px;
+            display: flex;
+            font-size: 4rem;
+            height: 100px;
+            justify-content: space-between;
+            padding-bottom: 0.5rem;
+            padding-top: 0.5rem;
+            width: 100%;
+        }
+    
+        .form_check {
+            align-items: center;
+            display: flex;
+            width: 100%;
+        }
+        
+        .form_check>label {
+            font-size: 12.5px;
+        }
+        
+        .form_check>input {
+            margin-right: 2px;
+        }
+         
+        .check_search_home {
+            align-items: center;
+            flex-direction: column;
+        }
+    
+        .form_check {
+            margin-bottom: 10px;
+        } 
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+    .navSuperior {
+        align-items: center;
+        display: flex;
+        justify-content: space-around;
+        margin-left: 2%;
+        margin-right: 2%;
+        padding: 2rem 25px 0 25px;
+    }
+
+    .header_logo {
+        width: 33%;
+        margin-right: 15px;
+    }
+    
+    .nav_page {
+        gap: 2px;
+        margin-bottom: 5px;
+    }
 
     nav>a {
-        font-size: 1.2rem;
+        font-size: 1.04rem;
     }
 
+    .navInferior {
+        height: 100px;
+        padding-bottom: 0.5rem;
+        padding-top: 0.5rem;
+    }
+
+    .form_check {
+        align-items: center;
+        display: flex;
+        width: 100%;
+    }
+    
+    .form_check>label {
+        font-size: 15px;
+    }
+    
+    .form_check>input {
+        margin-right: 15px;
+    }
+     
+    .check_search_home {
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 50px;
+    }
+
+    .check_home {
+        margin-bottom: 15px;
+    }
+
+    .form_check {
+        margin-bottom: 15px;
+    } 
 }
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .navSuperior {
+        align-items: center;
+        display: flex;
+        flex-direction: row; 
+        justify-content: space-around;
+        margin-left: 3%;
+        margin-right: 3%;
+        padding: 2rem 25px 0 25px;
+    }
+
+    .header_logo {
+        width: 40%;
+        margin-right: 15px;
+    }
+    
+    .nav_page {
+        gap: 3px;
+        margin-bottom: 10px;
+    }
+
+    nav>a {
+        font-size: 1.23rem;
+    }
+
+    .navInferior {
+        height: 100px;
+        padding-bottom: 0.5rem;
+        padding-top: 0.5rem;
+    } 
+}
+

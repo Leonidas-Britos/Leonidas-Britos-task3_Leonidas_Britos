@@ -413,12 +413,15 @@ legend {
     .navSuperior {
         margin-bottom: 3px;
     }
-    
     .check_search {
         display: none;
     }
     .search_home {
         display: none;
+    }
+
+    .form_contact {
+        width: 380px;
     }
     
 }
@@ -473,6 +476,10 @@ legend {
     .form_check {
         margin-bottom: 10px;
     } 
+
+    .form_contact {
+        width: 380px;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */

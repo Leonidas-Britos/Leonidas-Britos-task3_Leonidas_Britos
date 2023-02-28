@@ -316,9 +316,7 @@ legend {
     cursor: pointer;
 }
 
-.check_search_upcomingEvents,
-.check_search_PastEvents,
-.check_search_home {
+.check_search{
     align-items: baseline;
     display: flex;
     height: 55px;
@@ -406,10 +404,6 @@ legend {
 @media only screen and (max-width: 425px) {
     .navSuperior {
         margin-bottom: 5px;
-    }
-
-    .navInferior {
-        width: 100%;
     }
     
     .search_home {

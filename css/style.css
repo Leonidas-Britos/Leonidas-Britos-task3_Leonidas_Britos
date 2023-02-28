@@ -406,7 +406,13 @@ legend {
 
 /*-------------------------------MEDIA-QUERIES------------------------------------*/
 
-@media only screen and (max-width: 360px) {}
+/* Extra extra small devices (phones, 360px and down) */
+@media only screen and (max-width: 360px) {
+    .form_contact {
+        width: 320px;
+    }
+
+}
 
 /* Extra extra small devices (phones, 425px and down) */
 @media only screen and (max-width: 425px) {
@@ -420,7 +426,7 @@ legend {
         margin-bottom: 30px;
         width: 100%;
     }
-    
+
     .check_search {
         display: none;
     }

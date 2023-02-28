@@ -411,18 +411,28 @@ legend {
 /* Extra extra small devices (phones, 425px and down) */
 @media only screen and (max-width: 425px) {
     .navSuperior {
-        margin-bottom: 5px;
+        margin-bottom: 3px;
     }
     
+    .check_search {
+        display: none;
+    }
     .search_home {
         display: none;
     }
+    
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 599px) {
+    .navSuperior {
+        display: flex;
+        flex-direction: column;
+    }
+    
     .header_logo {
-        display: none;
+        margin-bottom: 30px;
+        width: 100%;
     }
 
     .header {

@@ -317,8 +317,8 @@ legend {
 }
 
 .check_search{
-    align-items: baseline;
     display: flex;
+    flex-direction: row;
     height: 55px;
     justify-content: space-around;
     padding-top: 20px;

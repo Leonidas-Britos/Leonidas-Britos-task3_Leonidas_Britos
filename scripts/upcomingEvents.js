@@ -1,3 +1,5 @@
+let eventos = data.events;
+
 
 let currentDate = data.currentDate
 

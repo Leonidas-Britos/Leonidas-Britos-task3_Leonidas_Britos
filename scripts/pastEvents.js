@@ -1,3 +1,5 @@
+let eventos = data.events;
+
 
 let currentDate = data.currentDate
 
@@ -8,7 +10,7 @@ function filtrarFecha(eventos) {
             eventPast.push(evento)
         }
     }
-    return eventPast
+    return eventPast;
 }
 
 const pastFiltrado = filtrarFecha(data.events);

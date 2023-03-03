@@ -64,7 +64,7 @@ let div = document.querySelector("form.form_check");
 let HTMLchecks = "";
 for (let category of listaCategorias) {
     HTMLchecks += `<label for="${(category.toLowerCase()).replace(/\s+/g, '')}">${category}</label>
-    <input type="checkbox" id="${(category.toLowerCase()).replace(/\s+/g, '')}" name="${(category.toLowerCase()).replace(/\s+/g, '')}" value="mus">`
+    <input type="checkbox" id="${(category.toLowerCase()).replace(/\s+/g, '')}" name="${(category.toLowerCase()).replace(/\s+/g, '')}" value="${(category.toLowerCase()).replace(/\s+/g, '')}_val">`
 }
 div.innerHTML = HTMLchecks;
 

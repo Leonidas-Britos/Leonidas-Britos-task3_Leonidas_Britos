@@ -46,6 +46,7 @@ let eventos = data.events;
 // crearObjeto(homeFiltrado);
 
 
+//generar array con categorias sin repetir
 function extraerCategorias(eventos) {
     categorias = [];
     eventos.forEach(element => {
@@ -56,17 +57,50 @@ function extraerCategorias(eventos) {
     return categorias;
 }
 const listaCategorias = extraerCategorias(eventos);
-console.log(listaCategorias);
 
 
 /*/////////////////////////////*/
+
+//generar el html con los checks por cada categoria
 let div = document.querySelector("form.form_check");
 let HTMLchecks = "";
 for (let category of listaCategorias) {
-    HTMLchecks += `<label for="${(category.toLowerCase()).replace(/\s+/g, '')}">${category}</label>
-    <input type="checkbox" id="${(category.toLowerCase()).replace(/\s+/g, '')}" name="${(category.toLowerCase()).replace(/\s+/g, '')}" value="${(category.toLowerCase()).replace(/\s+/g, '')}_val">`
+    HTMLchecks += `<label><input type="checkbox" id="${(category.toLowerCase()).replace(/\s+/g, '')}" value="${(category.toLowerCase()).replace(/\s+/g, '')}_val">${category}</label><br>`
 }
 div.innerHTML = HTMLchecks;
+
+/*///////////////*/
+
+//funcionalidad para que muestre las categorias al hacer click en check
+
+let divChecks = document.querySelectorAll("form label");
+
+
+divChecks.forEach(formulario => {
+    formulario.onclick = () => {
+        let HTMLresultados = "";
+        let category = formulario.innerText;
+        eventos.filter(evento => category == evento.category).forEach(element => {
+            HTMLresultados += `
+            <div class="tarjeta">
+            <img class="tarjeta-imagen" src="${element.image}" alt="imagen de la card">
+              <div class="tarjeta-cuerpo">
+                <h5 class="tarjeta-titulo">${element.name}</h5>
+                <p class="tarjeta-texto">${element.description}</p>
+              </div>
+              <div class="tarjeta-elementos">
+                <p class="tarjeta-precio">Price: $${element.price}</p>
+                <a class="tarjeta-boton" href="./details.html">View more</a>
+              </div>
+          </div>`;
+          
+        });
+
+        document.querySelector(".cards_home").innerHTML = HTMLresultados;
+        
+    }
+    
+});
 
 
 

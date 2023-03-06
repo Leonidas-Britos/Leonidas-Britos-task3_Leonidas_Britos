@@ -14,45 +14,27 @@ function filtrarFecha(eventos) {
 }
 
 const pastFiltrado = filtrarFecha(data.events);
-
-
 let fragmento = document.createDocumentFragment();
 
 const crearObjeto = (pastFiltrado) => {
+    const contenedorTarjetas = document.getElementById('cards_pastEventsId');
     pastFiltrado.forEach(element => {
-        let tarjeta = document.createElement("div");
-        tarjeta.classList.add('tarjeta');
-        let tarjetaImagen = document.createElement("img");
-        tarjetaImagen.classList.add('tarjeta-imagen');
-        tarjetaImagen.src = `${element.image}`;
-        tarjetaImagen.alt = "imagen de la card";
-        let tarjetaCuerpo = document.createElement("div");
-        tarjetaCuerpo.classList.add('tarjeta-cuerpo');
-        let tarjetaTitulo = document.createElement("h5");
-        tarjetaTitulo.classList.add('tarjeta-titulo');
-        tarjetaTitulo.innerText = `${element.name}`;
-        let tarjetaTexto = document.createElement("p");
-        tarjetaTexto.classList.add('tarjeta-texto');
-        tarjetaTexto.innerText = `${element.description}`;
-        let tarjetaElementos = document.createElement("div");
-        tarjetaElementos.classList.add('tarjeta-elementos');
-        let tarjetaPrecio = document.createElement("p");
-        tarjetaPrecio.classList.add('tarjeta-precio');
-        tarjetaPrecio.innerText = `Price: $${element.price}`;
-        let tarjetaBoton = document.createElement("a");
-        tarjetaBoton.classList.add('tarjeta-boton');
-        tarjetaBoton.innerText = "View more";
-        tarjetaBoton.href = "./details.html"
-        tarjeta.appendChild(tarjetaImagen);
-        tarjeta.appendChild(tarjetaCuerpo);
-        tarjeta.appendChild(tarjetaElementos);
-        tarjetaCuerpo.appendChild(tarjetaTitulo);
-        tarjetaCuerpo.appendChild(tarjetaTexto);
-        tarjetaElementos.appendChild(tarjetaPrecio);
-        tarjetaElementos.appendChild(tarjetaBoton);
-        
-        fragmento.appendChild(tarjeta)
-        document.querySelector("div.cards_pastEvents").appendChild(fragmento);
+      const tarjeta = document.createElement("div");
+      tarjeta.id = 'card';
+      tarjeta.innerHTML = `
+      <div class="tarjeta">
+      <img class="tarjeta-imagen" src="${element.image}" alt="imagen de la card">
+        <div class="tarjeta-cuerpo">
+          <h5 class="tarjeta-titulo">${element.name}</h5>
+          <p class="tarjeta-texto">${element.description}</p>
+        </div>
+        <div class="tarjeta-elementos">
+          <p class="tarjeta-precio">Price: $${element.price}</p>
+          <a class="tarjeta-boton" href="./details.html">View more</a>
+        </div>
+    </div>`;
+      fragmento.appendChild(tarjeta);
+      contenedorTarjetas.appendChild(fragmento);
     });
-}
-crearObjeto(pastFiltrado);
+  };
+  crearObjeto(pastFiltrado);

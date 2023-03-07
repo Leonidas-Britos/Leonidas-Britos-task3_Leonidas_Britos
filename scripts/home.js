@@ -1,10 +1,7 @@
 let eventos = data.events;
 
-
 const homeFiltrado = data.events;
 let fragmento = document.createDocumentFragment();
-
-
 
 //generar array con categorias sin repetir
 function extraerCategorias(eventos) {
@@ -30,7 +27,7 @@ const generarChecksPorCategoria = () => {
 generarChecksPorCategoria();
 
 //Escucha los cambios en los elementos inputs(checkbox), filtra y muestra únicamente a los checkbox seleccionados.
-const escucharyFiltrarCheckBoxes = () => { 
+const escucharyFiltrarCheckBoxes = () => {
   let divChecks = document.querySelectorAll("input[type=checkbox]");
   divChecks.forEach(inputCheck => {
     inputCheck.addEventListener("change", function tarjetaSeleccionada() {
@@ -40,18 +37,18 @@ const escucharyFiltrarCheckBoxes = () => {
           ArrInputsChecked.push(inputCheck.value);
         }
       });
-      let homeFiltrado = data.events.filter(evento => ArrInputsChecked.includes(evento.category));
-      imprimirCards(homeFiltrado, '.cards_home');
+      let categoriasSeleccionadas = homeFiltrado.filter(evento => ArrInputsChecked.includes(evento.category));
+      imprimirCards(categoriasSeleccionadas, '.cards_home');
     });
   });
 }
 
 //Imprime las cards, hay que pasarle por parametro el array que se quiere filtrar y el contenedor donde se lo quiere colocar en el html
-function imprimirCards(arrayAfiltrar,contenedorHtml){
+function imprimirCards(arrayAfiltrar, contenedorHtml) {
   let contenedorCards = document.querySelector(contenedorHtml);
   contenedorCards.innerHTML = "";
-  arrayAfiltrar.forEach(elementObject => { 
-  contenedorCards.innerHTML += `
+  arrayAfiltrar.forEach(elementObject => {
+    contenedorCards.innerHTML += `
       <div class="tarjeta">
       <img class="tarjeta-imagen" src="${elementObject.image}" alt="imagen de la card">
         <div class="tarjeta-cuerpo">
@@ -63,12 +60,7 @@ function imprimirCards(arrayAfiltrar,contenedorHtml){
           <a class="tarjeta-boton" href="./details.html">View more</a>
         </div>
     </div>`;
-
-});
-
+  });
 }
-
-
 escucharyFiltrarCheckBoxes();
-
-imprimirCards(homeFiltrado,'.cards_home');
+imprimirCards(homeFiltrado, '.cards_home');

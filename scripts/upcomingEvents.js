@@ -1,8 +1,7 @@
 let eventos = data.events;
-
-
 let currentDate = data.currentDate
 
+//fitlo eventos futuros 
 function filtrarFecha(eventos) {
   const eventUpcoming = []
   for (evento of eventos) {
@@ -16,26 +15,64 @@ function filtrarFecha(eventos) {
 const upcomingFiltrado = filtrarFecha(data.events);
 let fragmento = document.createDocumentFragment();
 
-const crearObjeto = (upcomingFiltrado) => {
-  const contenedorTarjetas = document.getElementById('cards_upcomingEventsId');
-  upcomingFiltrado.forEach(element => {
-    const tarjeta = document.createElement("div");
-    tarjeta.id = 'card';
-    tarjeta.innerHTML = `
-    <div class="tarjeta">
-    <img class="tarjeta-imagen" src="${element.image}" alt="imagen de la card">
-      <div class="tarjeta-cuerpo">
-        <h5 class="tarjeta-titulo">${element.name}</h5>
-        <p class="tarjeta-texto">${element.description}</p>
-      </div>
-      <div class="tarjeta-elementos">
-        <p class="tarjeta-precio">Price: $${element.price}</p>
-        <a class="tarjeta-boton" href="./details.html">View more</a>
-      </div>
-  </div>`;
-    fragmento.appendChild(tarjeta);
-    contenedorTarjetas.appendChild(fragmento);
+//generar array con categorias sin repetir
+function extraerCategorias(eventos) {
+  categorias = [];
+  eventos.forEach(element => {
+    if (!categorias.includes(element.category)) {
+      categorias.push(element.category);
+    }
   });
-};
-crearObjeto(upcomingFiltrado);
+  return categorias;
+}
+const listaCategorias = extraerCategorias(eventos);
 
+//generar el html con los checks por cada categoria
+const generarChecksPorCategoria = () => {
+  let div = document.querySelector("form.form_check");
+  let HTMLchecks = "";
+  for (let category of listaCategorias) {
+    HTMLchecks += `<label><input type="checkbox" id="${(category.toLowerCase()).replace(/\s+/g, '')}" value="${(category)}">${category}</label><br>`
+  }
+  div.innerHTML = HTMLchecks;
+}
+generarChecksPorCategoria();
+
+//Escucha los cambios en los elementos inputs(checkbox), filtra y muestra únicamente a los checkbox seleccionados.
+const escucharyFiltrarCheckBoxes = () => {
+  let divChecks = document.querySelectorAll("input[type=checkbox]");
+  divChecks.forEach(inputCheck => {
+    inputCheck.addEventListener("change", function tarjetaSeleccionada() {
+      let ArrInputsChecked = [];
+      divChecks.forEach(inputCheck => {
+        if (inputCheck.checked) {
+          ArrInputsChecked.push(inputCheck.value);
+        }
+      });
+      let categoriasSeleccionadas = upcomingFiltrado.filter(evento => ArrInputsChecked.includes(evento.category));
+      imprimirCards(categoriasSeleccionadas, '.cards_upcomingEvents');
+    });
+  });
+}
+
+//Imprime las cards, hay que pasarle por parametro el array que se quiere filtrar y el contenedor donde se lo quiere colocar en el html
+function imprimirCards(arrayAfiltrar, contenedorHtml) {
+  let contenedorCards = document.querySelector(contenedorHtml);
+  contenedorCards.innerHTML = "";
+  arrayAfiltrar.forEach(elementObject => {
+    contenedorCards.innerHTML += `
+      <div class="tarjeta">
+      <img class="tarjeta-imagen" src="${elementObject.image}" alt="imagen de la card">
+        <div class="tarjeta-cuerpo">
+          <h5 class="tarjeta-titulo">${elementObject.name}</h5>
+          <p class="tarjeta-texto">${elementObject.description}</p>
+        </div>
+        <div class="tarjeta-elementos">
+          <p class="tarjeta-precio">Price: $${elementObject.price}</p>
+          <a class="tarjeta-boton" href="./details.html">View more</a>
+        </div>
+    </div>`;
+  });
+}
+escucharyFiltrarCheckBoxes();
+imprimirCards(upcomingFiltrado, '.cards_upcomingEvents');

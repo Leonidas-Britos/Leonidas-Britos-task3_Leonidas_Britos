@@ -69,10 +69,23 @@ function imprimirCards(arrayAfiltrar, contenedorHtml) {
         </div>
         <div class="tarjeta-elementos">
           <p class="tarjeta-precio">Price: $${elementObject.price}</p>
-          <a class="tarjeta-boton" href="./details.html">View more</a>
+          <a class="tarjeta-boton" href="./details.html?id=${elementObject._id}">View more</a>
         </div>
     </div>`;
   });
 }
 escucharyFiltrarCheckBoxes();
 imprimirCards(pastFiltrado, '.cards_pastEvents');
+
+
+// /*prototipo search*/
+// let form = document.getElementById('form_searchId');
+// console.log(form);
+
+// form.addEventListener('submit',(e) =>{
+//   e.preventDefault();
+
+//   console.log(form[0].value);
+
+
+// });

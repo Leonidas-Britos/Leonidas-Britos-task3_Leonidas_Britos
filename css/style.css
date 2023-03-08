@@ -154,31 +154,63 @@ main {
     justify-content: center;
 }
 
-.box_details {
-    background-color: white;
-    border: solid 1px black;
-    border-radius: 20px;
+.card_detail {
+    align-items: center;
     display: flex;
-    height: 320px;
-    padding: 25px;
-    width: 800px;
+    background-color: #fdfdfd;
+    border: solid 0.2px black;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    justify-content: center;
+    padding: 25px 15px 10px 15px;
+    width: 750px;
 }
 
-.img_details {
-    border: solid 1px black;
+.tarjeta-imagen-detail {
+  border: solid 0.2px black;
+  border-radius: 0.5rem;
+  width: 700px;
 }
 
 .content_box_details {
-    border: solid 1.3px black;
     display: flex;
     flex-direction: column;
     margin-left: 15px;
-    padding: 20px;
+    padding-top: 30px;
 }
 
-.content_box_details>h2 {
+.another_info_details {
+    display: flex;
+    gap: 30px;
+}
+
+.tarjeta-titulo-detail {
+    color: #e0046c;
+    font-size: 3rem;
+    font-weight: 450;
+    margin-bottom: 25px;
     text-align: center;
     text-decoration: underline;
+}
+
+.description_details {
+    font-size: 1.3rem;
+    font-weight: 350;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.b_details {
+    color: #e0046c;
+    font-size:1.25rem ;
+}
+
+.tarjeta-texto-detail {
+    height: 70px;
+    text-align: center;
+    width: 230px;
 }
 
 /*-------------------------------------------------CONTACT------------------------------------------------------------------*/

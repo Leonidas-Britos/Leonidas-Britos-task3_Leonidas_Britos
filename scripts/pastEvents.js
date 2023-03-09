@@ -93,7 +93,8 @@ const busquedaPorNombreyCoincidencia = () => {
     );
     imprimirCards(coincidencias, '.cards_pastEvents');
 
-    pastFiltrado.filter(evento => !evento.name.toLowerCase().includes(busqueda) || !evento.description.toLowerCase().includes(busqueda)
+    if (coincidencias == false) {
+      pastFiltrado.filter(evento => !evento.name.toLowerCase().includes(busqueda) || !evento.description.toLowerCase().includes(busqueda)
     );
     imprimirCards(coincidencias, '.cards_pastEvents');
 
@@ -105,6 +106,7 @@ const busquedaPorNombreyCoincidencia = () => {
           <p>No se han encontrado resultados, intente probando con otra combinación de filtros!</p>
       </div>
       `
+    }
   });
 };
 

@@ -85,16 +85,14 @@ const busquedaPorNombreyCoincidencia = () => {
   let input = document.getElementById('inputBusqueda');
 
   form.addEventListener('submit', (e) => {
+
     e.preventDefault();
 
     const busqueda = input.value.toLowerCase().trim();
-    const coincidencias = eventos.filter(evento => 
-      evento.name.toLowerCase().includes(busqueda) || 
-      evento.description.toLowerCase().includes(busqueda)
+    const coincidencias = pastFiltrado.filter(evento => evento.name.toLowerCase().includes(busqueda) || evento.description.toLowerCase().includes(busqueda)
     );
-
     imprimirCards(coincidencias, '.cards_pastEvents');
-  });
+  })
 }
 
 busquedaPorNombreyCoincidencia();

@@ -76,3 +76,20 @@ function imprimirCards(arrayAfiltrar, contenedorHtml) {
 }
 escucharyFiltrarCheckBoxes();
 imprimirCards(upcomingFiltrado, '.cards_upcomingEvents');
+
+
+const busquedaPorNombreyCoincidencia = () => {
+  let form = document.getElementById('form_searchId');
+  let input = document.getElementById('inputBusqueda');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const busqueda = input.value.toLowerCase().trim();
+    const coincidencias = upcomingFiltrado.filter(evento => evento.name.toLowerCase().includes(busqueda) || evento.description.toLowerCase().includes(busqueda)
+    );
+    imprimirCards(coincidencias, '.cards_upcomingEvents');
+  });
+};
+
+busquedaPorNombreyCoincidencia();

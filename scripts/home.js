@@ -26,6 +26,7 @@ const generarChecksPorCategoria = () => {
 }
 generarChecksPorCategoria();
 
+
 //Escucha los cambios en los elementos inputs(checkbox), filtra y muestra únicamente a los checkbox seleccionados.
 const escucharyFiltrarCheckBoxes = () => {
   let divChecks = document.querySelectorAll("input[type=checkbox]");
@@ -37,8 +38,12 @@ const escucharyFiltrarCheckBoxes = () => {
           ArrInputsChecked.push(inputCheck.value);
         }
       });
-      let categoriasSeleccionadas = homeFiltrado.filter(evento => ArrInputsChecked.includes(evento.category));
-      imprimirCards(categoriasSeleccionadas, '.cards_home');
+      if (ArrInputsChecked.length === 0) {
+        imprimirCards(homeFiltrado, '.cards_home')
+      }else {
+        let categoriasSeleccionadas = homeFiltrado.filter(evento => ArrInputsChecked.includes(evento.category));
+        imprimirCards(categoriasSeleccionadas, '.cards_home');
+      }
     });
   });
 }
@@ -70,28 +75,28 @@ const busquedaPorNombreyCoincidencia = () => {
   let form = document.getElementById('form_searchId');
   let input = document.getElementById('inputBusqueda');
 
-  form.addEventListener('submit',(e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const busqueda = input.value.toLowerCase().trim();
     const coincidencias = eventos.filter(evento => evento.name.toLowerCase().includes(busqueda) || evento.description.toLowerCase().includes(busqueda)
     );
-  imprimirCards(coincidencias, '.cards_home');
-
-  if (coincidencias == false) {
-    eventos.filter(evento => !evento.name.toLowerCase().includes(busqueda) || !evento.description.toLowerCase().includes(busqueda)
-  );
     imprimirCards(coincidencias, '.cards_home');
-    
-    let mensajeErrorFiltros = document.querySelector('.cards_home');
-    mensajeErrorFiltros.innerHTML = "";
-    mensajeErrorFiltros.innerHTML += `
+
+    if (coincidencias == false) {
+      eventos.filter(evento => !evento.name.toLowerCase().includes(busqueda) || !evento.description.toLowerCase().includes(busqueda)
+      );
+      imprimirCards(coincidencias, '.cards_home');
+
+      let mensajeErrorFiltros = document.querySelector('.cards_home');
+      mensajeErrorFiltros.innerHTML = "";
+      mensajeErrorFiltros.innerHTML += `
     <div class="mensaje_error_filtros">
         <h5>ATENCIÓN!</h5>
         <p>No se han encontrado resultados, intente probando con otra combinación de filtros!</p>
     </div>
     `
-  }
+    }
   });
 };
 busquedaPorNombreyCoincidencia();

@@ -49,8 +49,12 @@ const escucharyFiltrarCheckBoxes = () => {
           ArrInputsChecked.push(inputCheck.value);
         }
       });
-      let categoriasSeleccionadas = upcomingFiltrado.filter(evento => ArrInputsChecked.includes(evento.category));
-      imprimirCards(categoriasSeleccionadas, '.cards_upcomingEvents');
+      if (ArrInputsChecked.length === 0) {
+        imprimirCards(upcomingFiltrado, '.cards_upcomingEvents')
+      }else {
+        let categoriasSeleccionadas = upcomingFiltrado.filter(evento => ArrInputsChecked.includes(evento.category));
+        imprimirCards(categoriasSeleccionadas, '.cards_upcomingEvents');
+      }
     });
   });
 }

@@ -103,8 +103,8 @@ const busquedaPorNombreyCoincidencia = () => {
       mensajeErrorFiltros.innerHTML = "";
       mensajeErrorFiltros.innerHTML += `
       <div class="mensaje_error_filtros">
-          <h5>ATENCIÓN!</h5>
-          <p>No se han encontrado resultados, intente probando con otra combinación de filtros!</p>
+          <h5>¡ATENCIÓN!</h5>
+          <p>¡No se han encontrado resultados, intente probando con otra combinación de filtros!</p>
       </div>
       `
     }

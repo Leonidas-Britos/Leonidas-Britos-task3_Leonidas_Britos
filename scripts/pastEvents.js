@@ -81,33 +81,27 @@ function imprimirCards(arrayAfiltrar, contenedorHtml) {
 escucharyFiltrarCheckBoxes();
 imprimirCards(pastFiltrado, '.cards_pastEvents');
 
-
-/*prototipo search*/
-
+//Busqueda por nombre y coincidencia titulo y descripcion
 const busquedaPorNombreyCoincidencia = () => {
   let form = document.getElementById('form_searchId');
   let input = document.getElementById('inputBusqueda');
 
   form.addEventListener('submit', (e) => {
-
     e.preventDefault();
-
     const busqueda = input.value.toLowerCase().trim();
     const coincidencias = pastFiltrado.filter(evento => evento.name.toLowerCase().includes(busqueda) || evento.description.toLowerCase().includes(busqueda)
     );
     imprimirCards(coincidencias, '.cards_pastEvents');
-
     if (coincidencias == false) {
       pastFiltrado.filter(evento => !evento.name.toLowerCase().includes(busqueda) || !evento.description.toLowerCase().includes(busqueda)
     );
     imprimirCards(coincidencias, '.cards_pastEvents');
-
     let mensajeErrorFiltros = document.querySelector('.cards_pastEvents');
     mensajeErrorFiltros.innerHTML = "";
     mensajeErrorFiltros.innerHTML += `
       <div class="mensaje_error_filtros">
-          <h5>ATENCIÓN!</h5>
-          <p>No se han encontrado resultados, intente probando con otra combinación de filtros!</p>
+          <h5>¡ATENCIÓN!</h5>
+          <p>¡No se han encontrado resultados, intente probando con otra combinación de filtros!</p>
       </div>
       `
     }

@@ -78,14 +78,23 @@ escucharyFiltrarCheckBoxes();
 imprimirCards(pastFiltrado, '.cards_pastEvents');
 
 
-// /*prototipo search*/
-// let form = document.getElementById('form_searchId');
-// console.log(form);
+/*prototipo search*/
 
-// form.addEventListener('submit',(e) =>{
-//   e.preventDefault();
+const busquedaPorNombreyCoincidencia = () => {
+  let form = document.getElementById('form_searchId');
+  let input = document.getElementById('inputBusqueda');
 
-//   console.log(form[0].value);
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
+    const busqueda = input.value.toLowerCase().trim();
+    const coincidencias = eventos.filter(evento => 
+      evento.name.toLowerCase().includes(busqueda) || 
+      evento.description.toLowerCase().includes(busqueda)
+    );
 
-// });
+    imprimirCards(coincidencias, '.cards_pastEvents');
+  });
+}
+
+busquedaPorNombreyCoincidencia();

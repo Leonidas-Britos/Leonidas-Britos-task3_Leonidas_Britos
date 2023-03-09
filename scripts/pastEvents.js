@@ -92,7 +92,20 @@ const busquedaPorNombreyCoincidencia = () => {
     const coincidencias = pastFiltrado.filter(evento => evento.name.toLowerCase().includes(busqueda) || evento.description.toLowerCase().includes(busqueda)
     );
     imprimirCards(coincidencias, '.cards_pastEvents');
-  })
-}
+
+    pastFiltrado.filter(evento => !evento.name.toLowerCase().includes(busqueda) || !evento.description.toLowerCase().includes(busqueda)
+    );
+    imprimirCards(coincidencias, '.cards_pastEvents');
+
+    let mensajeErrorFiltros = document.querySelector('.cards_pastEvents');
+    mensajeErrorFiltros.innerHTML = "";
+    mensajeErrorFiltros.innerHTML += `
+      <div class="mensaje_error_filtros">
+          <h5>ATENCIÓN!</h5>
+          <p>No se han encontrado resultados, intente probando con otra combinación de filtros!</p>
+      </div>
+      `
+  });
+};
 
 busquedaPorNombreyCoincidencia();

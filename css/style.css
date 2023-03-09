@@ -446,6 +446,21 @@ legend {
     color: #fdfdfd;
 }
 
+.mensaje_error_filtros {
+    background-color: #F0F8FF;;
+    border: dashed 3px green;
+    margin-top: 50px;
+    padding: 30px;
+}
+
+.mensaje_error_filtros > h5 {
+    color: green;
+    font-weight: bold;
+    padding-bottom: 25px;
+    text-align: center;
+
+}
+
 /*-------------------------------MEDIA-QUERIES------------------------------------*/
 
 /* Extra extra small devices (phones, 360px and down) */

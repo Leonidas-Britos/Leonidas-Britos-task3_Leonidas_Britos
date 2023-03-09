@@ -89,6 +89,19 @@ const busquedaPorNombreyCoincidencia = () => {
     const coincidencias = upcomingFiltrado.filter(evento => evento.name.toLowerCase().includes(busqueda) || evento.description.toLowerCase().includes(busqueda)
     );
     imprimirCards(coincidencias, '.cards_upcomingEvents');
+
+    upcomingFiltrado.filter(evento => !evento.name.toLowerCase().includes(busqueda) || !evento.description.toLowerCase().includes(busqueda)
+    );
+      imprimirCards(coincidencias, '.cards_upcomingEvents');
+      
+      let mensajeErrorFiltros = document.querySelector('.cards_upcomingEvents');
+      mensajeErrorFiltros.innerHTML = "";
+      mensajeErrorFiltros.innerHTML += `
+      <div class="mensaje_error_filtros">
+          <h5>ATENCIÓN!</h5>
+          <p>No se han encontrado resultados, intente probando con otra combinación de filtros!</p>
+      </div>
+      `
   });
 };
 

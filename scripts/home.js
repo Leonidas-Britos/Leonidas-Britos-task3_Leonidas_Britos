@@ -77,6 +77,19 @@ const busquedaPorNombreyCoincidencia = () => {
     const coincidencias = eventos.filter(evento => evento.name.toLowerCase().includes(busqueda) || evento.description.toLowerCase().includes(busqueda)
     );
   imprimirCards(coincidencias, '.cards_home');
+
+  eventos.filter(evento => !evento.name.toLowerCase().includes(busqueda) || !evento.description.toLowerCase().includes(busqueda)
+  );
+    imprimirCards(coincidencias, '.cards_home');
+    
+    let mensajeErrorFiltros = document.querySelector('.cards_home');
+    mensajeErrorFiltros.innerHTML = "";
+    mensajeErrorFiltros.innerHTML += `
+    <div class="mensaje_error_filtros">
+        <h5>ATENCIÓN!</h5>
+        <p>No se han encontrado resultados, intente probando con otra combinación de filtros!</p>
+    </div>
+    `
   });
 };
 busquedaPorNombreyCoincidencia();

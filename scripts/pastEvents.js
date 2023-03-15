@@ -51,7 +51,7 @@ const escucharyFiltrarCheckBoxes = () => {
       });
       if (ArrInputsChecked.length === 0) {
         imprimirCards(pastFiltrado, '.cards_pastEvents')
-      }else {
+      } else {
         let categoriasSeleccionadas = pastFiltrado.filter(evento => ArrInputsChecked.includes(evento.category));
         imprimirCards(categoriasSeleccionadas, '.cards_pastEvents');
       }
@@ -94,11 +94,11 @@ const busquedaPorNombreyCoincidencia = () => {
     imprimirCards(coincidencias, '.cards_pastEvents');
     if (coincidencias == false) {
       pastFiltrado.filter(evento => !evento.name.toLowerCase().includes(busqueda) || !evento.description.toLowerCase().includes(busqueda)
-    );
-    imprimirCards(coincidencias, '.cards_pastEvents');
-    let mensajeErrorFiltros = document.querySelector('.cards_pastEvents');
-    mensajeErrorFiltros.innerHTML = "";
-    mensajeErrorFiltros.innerHTML += `
+      );
+      imprimirCards(coincidencias, '.cards_pastEvents');
+      let mensajeErrorFiltros = document.querySelector('.cards_pastEvents');
+      mensajeErrorFiltros.innerHTML = "";
+      mensajeErrorFiltros.innerHTML += `
       <div class="mensaje_error_filtros">
           <h5>¡ATENCIÓN!</h5>
           <p>¡No se han encontrado resultados, intente probando con otra combinación de filtros!</p>

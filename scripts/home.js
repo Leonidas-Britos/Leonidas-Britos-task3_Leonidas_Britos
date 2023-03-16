@@ -1,5 +1,8 @@
+//Guardo el objeto data dentro de una nueva variable.
 let eventos = data.events;
+//Creo un fragmento.
 let fragmento = document.createDocumentFragment();
+
 /*------------------------------GENERO UN ARRAY CON CATEGORÍAS SIN REPETIR------------------------------ */
 
 function extraerCategorias(eventos) {
@@ -27,27 +30,26 @@ generarChecksPorCategoria();
 /*----------------------------ESCUCHO LOS CAMBIOS EN LOS CHECKBOXES Y FILTRO------------------------------ */
 
 let inputCheckeados = [];
-//Escucha los cambios en los elementos inputs(checkbox), filtra y muestra únicamente a los checkbox seleccionados.
 const escucharyFiltrarCheckBoxes = () => {
-  //Creo una variable que captura todos los input de tipo checkbox.
+  //Selecciono todos los input de tipo checkbox de mi html.
   let divChecks = document.querySelectorAll("input[type=checkbox]");
-  //Recorro a cada uno. 
-  divChecks.forEach(inputCheck => {
-    //Escucho si existe algún cambio en ellos y ejecutando una funcion.
+    //Recorro cada uno de los input checks.
+    divChecks.forEach(inputCheck => {
+    //Escucho si existe algún cambio en ellos y ejecuto la funcion tarjetaSeleccionada().
     inputCheck.addEventListener("change", function tarjetaSeleccionada() {
       let ArrInputsChecked = [];
       divChecks.forEach(inputCheck => {
-        //Si por cada variable inputCheck esta chequeada, la guardo dentro de un array con su respectivo valor.
+        //Recorro cada uno de los input checks y pregunto si estan en estado "checkd" guardo su valor en el array creado anteriormente.
         if (inputCheck.checked) {
           ArrInputsChecked.push(inputCheck.value);
         }
       });
       //Hora de imprimir cards:
-      //Si no existe ningún input checkeado imprimo todas las cards disponibles.
+      //Si no existe ningún input checkeado imprimo todas las cards disponibles con la función imprimirCards().
       if (ArrInputsChecked.length === 0) {
         imprimirCards(eventos, '.cards_home')
       } else {
-        //Si no hay texto en el buscador, imprimo las cards correspondientes a los checks marcados y guardo esa condicion en la variable inputCheckeados.
+        //Si no hay texto en el buscador, imprimo las cards correspondientes a los checks marcados con la función imprimirCards() y guardo esa condicion en la variable inputCheckeados.
         if (inputBuscados.length == 0) {
           let categoriasSeleccionadas = eventos.filter(evento => ArrInputsChecked.includes(evento.category));
 
@@ -56,8 +58,8 @@ const escucharyFiltrarCheckBoxes = () => {
         } else {
           //Sino filtro en base a los resultados del buscador de texto que traigo desde la función: busquedaPorNombreyCoincidencia().
           let categoriasSeleccionadas = inputBuscados.filter(evento => ArrInputsChecked.includes(evento.category));
-
           imprimirCards(categoriasSeleccionadas, '.cards_home');
+
         }
       }
     });
@@ -69,33 +71,43 @@ const escucharyFiltrarCheckBoxes = () => {
 let inputBuscados = [];
 
 const busquedaPorNombreyCoincidencia = () => {
+  //Capturo el formulario y el input del html.
   let form = document.getElementById('form_searchId');
   let input = document.getElementById('inputBusqueda');
 
+  //Escucho el evento de tipo submit.
   form.addEventListener('submit', (e) => {
+    //Evito que se recargue la página.
     e.preventDefault();
-    //Estandarizo el valor de input, convirtiendolo en minuscula y posteriormente quitandole espacios por delante y detras
+    //Creo una variable busqueda con su input estandarizado.
     const busqueda = input.value.toLowerCase().trim();
-    //declaro la variable coincidencias, que incluye el filtrado si coincide en el titulo o descripcion del evento.
-    const coincidencias = eventos.filter(evento => evento.name.toLowerCase().includes(busqueda) || evento.description.toLowerCase().includes(busqueda)
-    );
-
-    //Si no hay ningun check presionado, filtra solamente las coincidencias con el buscador de texto y no guardo ningun input checkeado.
-    if (inputCheckeados.length == 0) {
+    const ArrInputsChecked = [];
+    //Selecciono todos los input de tipo checkbox de mi html.
+    let checkboxes = document.querySelectorAll("input[type=checkbox]");
+    //Recorro cada uno de los input checks y pregunto si estan en estado "checkd" guardo su valor en el array creado anteriormente.
+    checkboxes.forEach(inputCheck => {
+      if (inputCheck.checked) {
+        ArrInputsChecked.push(inputCheck.value);
+      }
+    });
+    //Ahora vemos si hay checkboxes seleccionados, filtramos los eventos que coinciden con el input de busqueda utilizando el metodo filter.
+    if (ArrInputsChecked.length === 0) {
       const coincidencias = eventos.filter(evento => evento.name.toLowerCase().includes(busqueda) || evento.description.toLowerCase().includes(busqueda)
       );
-      inputBuscados = 0;
-
-      imprimirCards(coincidencias, '.cards_home');
-      //Si hay algun check presionado, filtro las coincidencias del buscador de texto y guardo la condición de que existen inputBuscados;
-    } else if (inputCheckeados.length > 0) {
-      const coincidencias = eventos.filter(evento => evento.name.toLowerCase().includes(busqueda) || evento.description.toLowerCase().includes(busqueda)
-      );
+      //Actualizamos el array con los resultados.
       inputBuscados = coincidencias;
-
+      // Llamo a la función imprimirCards() para mostrar los resultados en la página.
+      imprimirCards(coincidencias, '.cards_home');
+      //Por el contrario si hay checkboxes seleccionados, filtra los eventos que coinciden con el input de busqueda y categoria seleccionada.
+    } else {
+      const categoriasSeleccionadas = eventos.filter(evento => ArrInputsChecked.includes(evento.category));
+      //Almaceno los resultados en la variable coincidencias
+      const coincidencias = categoriasSeleccionadas.filter(evento => evento.name.toLowerCase().includes(busqueda) || evento.description.toLowerCase().includes(busqueda));
+      //También llama a la función imprimirCards() para mostrar los resultados en la página.
       imprimirCards(coincidencias, '.cards_home');
     }
-    //Sino existe ninguna coincidencia en la busqueda por texto, muestra un mensaje de error
+    //Mensaje de advertencia, sin resutlados.
+    //Sino existen coincidencias con el input de busqueda, muestro el resultado vacio con la función  imprimirCards() junto a un mensaje de advertencia.
     if (coincidencias == false) {
       eventos.filter(evento => !evento.name.toLowerCase().includes(busqueda) || !evento.description.toLowerCase().includes(busqueda)
       );
@@ -103,14 +115,15 @@ const busquedaPorNombreyCoincidencia = () => {
       let mensajeErrorFiltros = document.querySelector('.cards_home');
       mensajeErrorFiltros.innerHTML = "";
       mensajeErrorFiltros.innerHTML += `
-    <div class="mensaje_error_filtros">
-        <h5>¡ATENCIÓN!</h5>
-        <p>¡No se han encontrado resultados, intente probando con otra combinación de filtros!</p>
-    </div>
-    `
+        <div class="mensaje_error_filtros">
+          <h5>¡ATENCIÓN!</h5>
+          <p>¡No se han encontrado resultados, intente probando con otra combinación de filtros!</p>
+        </div>
+      `
     }
   });
 };
+
 busquedaPorNombreyCoincidencia();
 
 /*-------------------------------------FUNCION PARA IMPRIMIR CARDS---------------------------------------- */

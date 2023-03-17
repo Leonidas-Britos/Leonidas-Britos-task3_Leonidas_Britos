@@ -1,12 +1,9 @@
 //Guardo el objeto data dentro de una nueva variable.
 let eventos = data.events;
-//Creo un fragmento.
-let fragmento = document.createDocumentFragment();
 
 /*------------------------------GENERO UN ARRAY CON CATEGORÍAS SIN REPETIR------------------------------ */
-
 function extraerCategorias(eventos) {
-  categorias = [];
+  let categorias = [];
   eventos.forEach(element => {
     if (!categorias.includes(element.category)) {
       categorias.push(element.category);
@@ -18,28 +15,27 @@ const listaCategorias = extraerCategorias(eventos);
 
 /*------------------------------GENERO LOS CHECKS EN EL HTML POR CADA CATEGORÍA------------------------------ */
 const generarChecksPorCategoria = () => {
-  let div = document.querySelector("form.form_check");
+  let form = document.querySelector("form.form_check");
   let HTMLchecks = "";
   for (let category of listaCategorias) {
     HTMLchecks += `<label><input type="checkbox" id="${(category.toLowerCase()).replace(/\s+/g, '')}" value="${(category)}">${category}</label><br>`
   }
-  div.innerHTML = HTMLchecks;
+  form.innerHTML = HTMLchecks;
 }
 generarChecksPorCategoria();
 
 /*----------------------------ESCUCHO LOS CAMBIOS EN LOS CHECKBOXES Y FILTRO------------------------------ */
-
-let inputCheckeados = [];
 const escucharyFiltrarCheckBoxes = () => {
+  let inputCheckeados = [];
   //Selecciono todos los input de tipo checkbox de mi html.
   let divChecks = document.querySelectorAll("input[type=checkbox]");
-    //Recorro cada uno de los input checks.
-    divChecks.forEach(inputCheck => {
+  //Recorro cada uno de los input checks.
+  divChecks.forEach(inputCheck => {
     //Escucho si existe algún cambio en ellos y ejecuto la funcion tarjetaSeleccionada().
     inputCheck.addEventListener("change", function tarjetaSeleccionada() {
       let ArrInputsChecked = [];
       divChecks.forEach(inputCheck => {
-        //Recorro cada uno de los input checks y pregunto si estan en estado "checkd" guardo su valor en el array creado anteriormente.
+        //Recorro cada uno de los input checks y pregunto si estan en estado "checked" guardo su valor en el array creado anteriormente.
         if (inputCheck.checked) {
           ArrInputsChecked.push(inputCheck.value);
         }
@@ -59,6 +55,17 @@ const escucharyFiltrarCheckBoxes = () => {
           //Sino filtro en base a los resultados del buscador de texto que traigo desde la función: busquedaPorNombreyCoincidencia().
           let categoriasSeleccionadas = inputBuscados.filter(evento => ArrInputsChecked.includes(evento.category));
           imprimirCards(categoriasSeleccionadas, '.cards_home');
+
+          if (categoriasSeleccionadas == false) {
+            let mensajeErrorFiltros = document.querySelector('.cards_home');
+            mensajeErrorFiltros.innerHTML = "";
+            mensajeErrorFiltros.innerHTML += `
+              <div class="mensaje_error_filtros">
+                <h5>¡ATENCIÓN!</h5>
+                <p>¡No se han encontrado resultados, intente probando con otra combinación de filtros!</p>
+              </div>
+            `
+          }
 
         }
       }
@@ -99,27 +106,37 @@ const busquedaPorNombreyCoincidencia = () => {
       // Llamo a la función imprimirCards() para mostrar los resultados en la página.
       imprimirCards(coincidencias, '.cards_home');
       //Por el contrario si hay checkboxes seleccionados, filtra los eventos que coinciden con el input de busqueda y categoria seleccionada.
+      //Mensaje de advertencia, sin resutlados.
+      //Sino existen coincidencias con el input de busqueda, muestro el resultado vacio con la función  imprimirCards() junto a un mensaje de advertencia.
+      if (coincidencias === 0) {
+        let mensajeErrorFiltros = document.querySelector('.cards_home');
+        mensajeErrorFiltros.innerHTML = "";
+        mensajeErrorFiltros.innerHTML += `
+        <div class="mensaje_error_filtros">
+          <h5>¡ATENCIÓN!</h5>
+          <p>¡No se han encontrado resultados, intente probando con otra combinación de filtros!</p>
+        </div>
+      `
+      }
+
     } else {
       const categoriasSeleccionadas = eventos.filter(evento => ArrInputsChecked.includes(evento.category));
       //Almaceno los resultados en la variable coincidencias
       const coincidencias = categoriasSeleccionadas.filter(evento => evento.name.toLowerCase().includes(busqueda) || evento.description.toLowerCase().includes(busqueda));
       //También llama a la función imprimirCards() para mostrar los resultados en la página.
       imprimirCards(coincidencias, '.cards_home');
-    }
-    //Mensaje de advertencia, sin resutlados.
-    //Sino existen coincidencias con el input de busqueda, muestro el resultado vacio con la función  imprimirCards() junto a un mensaje de advertencia.
-    if (coincidencias == false) {
-      eventos.filter(evento => !evento.name.toLowerCase().includes(busqueda) || !evento.description.toLowerCase().includes(busqueda)
-      );
-      imprimirCards(coincidencias, '.cards_home');
-      let mensajeErrorFiltros = document.querySelector('.cards_home');
-      mensajeErrorFiltros.innerHTML = "";
-      mensajeErrorFiltros.innerHTML += `
+      //Mensaje de advertencia, sin resultados.
+      //Sino existen coincidencias con el input de busqueda, muestro el resultado vacio con la función  imprimirCards() junto a un mensaje de advertencia.
+      if (coincidencias == false) {
+        let mensajeErrorFiltros = document.querySelector('.cards_home');
+        mensajeErrorFiltros.innerHTML = "";
+        mensajeErrorFiltros.innerHTML += `
         <div class="mensaje_error_filtros">
           <h5>¡ATENCIÓN!</h5>
           <p>¡No se han encontrado resultados, intente probando con otra combinación de filtros!</p>
         </div>
       `
+      }
     }
   });
 };
@@ -134,18 +151,18 @@ function imprimirCards(arrayAfiltrar, contenedorHtml) {
   contenedorCards.innerHTML = "";
   arrayAfiltrar.forEach(elementObject => {
     contenedorCards.innerHTML += `
-      <div class="tarjeta">
-      <img class="tarjeta-imagen" src="${elementObject.image}" alt="imagen de la card">
-        <div class="tarjeta-cuerpo">
-          <h5 class="tarjeta-titulo">${elementObject.name}</h5>
-          <p class="tarjeta-texto">${elementObject.description}</p>
-          <p>Category: ${elementObject.category}</p>
-        </div>
-        <div class="tarjeta-elementos">
-          <p class="tarjeta-precio">Price: $${elementObject.price}</p>
-          <a class="tarjeta-boton" href="./details.html?id=${elementObject._id}">View more</a>
-        </div>
-    </div>`;
+    <div class="tarjeta">
+    <img class="tarjeta-imagen" src="${elementObject.image}" alt="imagen de la card">
+      <div class="tarjeta-cuerpo">
+        <h5 class="tarjeta-titulo">${elementObject.name}</h5>
+      <p class="tarjeta-texto">${elementObject.description}</p>
+        <p class="tarjeta-category"><b class="category_card" >Category: </b>${elementObject.category}</p>
+      </div>
+      <div class="tarjeta-elementos">
+        <p class="tarjeta-precio"><b>Price: </b>$${elementObject.price}</p>
+        <a class="tarjeta-boton" href="./details.html?id=${elementObject._id}">View more</a>
+      </div>
+  </div>`;
   });
 }
 

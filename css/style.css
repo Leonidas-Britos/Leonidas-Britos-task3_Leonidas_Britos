@@ -407,6 +407,7 @@ legend {
 }
 
 .tarjeta-titulo {
+    color: #e0046c;
     font-size: 1.25rem;
     font-weight: bold;
     text-align: center;
@@ -416,6 +417,16 @@ legend {
     height: 70px;
     width: 230px;
     text-align: center;
+}
+
+.tarjeta-category {
+    margin-bottom: 5px;
+    margin-top: 27px;
+}
+
+.category_card{
+    color: #e0046c;
+    font-size: 1rem;
 }
 
 .tarjeta-elementos {
@@ -455,6 +466,21 @@ legend {
 
 .mensaje_error_filtros > h5 {
     color: green;
+    font-weight: bold;
+    padding-bottom: 25px;
+    text-align: center;
+
+}
+
+.mensaje_error_filtros2 {
+    background-color: #F0F8FF;;
+    border: dashed 3px purple;
+    margin-top: 50px;
+    padding: 30px;
+}
+
+.mensaje_error_filtro2s > h5 {
+    color: purple;
     font-weight: bold;
     padding-bottom: 25px;
     text-align: center;
